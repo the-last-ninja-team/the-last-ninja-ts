@@ -1,0 +1,50 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+const PACKAGE = require('./package.json')
+
+const mode = process.env.NODE_ENV || 'production';
+const isNeedBundleAnalyzer = process.env.BUNDLE_ANALYZER;
+
+module.exports = {
+  mode,
+  entry: './src/index.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js'
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+    alias: {
+      '@src': path.resolve(__dirname, 'src'),
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2|ttf|eot|png)$/,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
+        },
+        exclude: /node_modules/,
+      },
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      title: PACKAGE.description,
+      version: PACKAGE.version
+    }),
+    ...(isNeedBundleAnalyzer ? [new BundleAnalyzerPlugin()] : []),
+  ]
+}
