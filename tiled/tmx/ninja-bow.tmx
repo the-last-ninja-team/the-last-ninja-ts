@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" width="20" height="1" tilewidth="50" tileheight="37" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="ninja-bow-tiles.tsx"/>
+ <layer id="1" name="bow-attack" width="20" height="1" visible="0">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="air-bow-attack" width="20" height="1" visible="0">
+  <data encoding="csv">
+10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

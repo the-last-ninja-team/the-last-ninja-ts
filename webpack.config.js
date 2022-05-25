@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const PACKAGE = require('./package.json')
+const PACKAGE = require('./package.json');
 
 const mode = process.env.NODE_ENV || 'production';
 const isNeedBundleAnalyzer = process.env.BUNDLE_ANALYZER;
@@ -12,7 +13,8 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js'
+    filename: '[name].[contenthash].js',
+    clean: true,
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
@@ -28,23 +30,35 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        use: {
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-          },
-        },
+        use: 'ts-loader',
         exclude: /node_modules/,
       },
-    ]
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './src/assets',
+          to: 'assets',
+          filter: (srcPath) => {
+            const extension = path.extname(srcPath);
+            return !['.tsx', '.tmx', '.xcf'].includes(extension);
+          },
+        },
+      ],
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
       title: PACKAGE.description,
-      version: PACKAGE.version
+      version: PACKAGE.version,
     }),
     ...(isNeedBundleAnalyzer ? [new BundleAnalyzerPlugin()] : []),
-  ]
-}
+  ],
+};

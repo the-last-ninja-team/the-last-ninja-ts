@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+.root {
+  position: relative;
+}
+
+.app__debug {
+  position: fixed;
+  left: 0.5rem;
+  top: 0.5rem;
+
+  padding: 0.25rem;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  border-radius: 0.25rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.checkbox__element {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  margin: 0.25rem 0;
+}
+
+.checkbox__element > label {
+  user-select: none;
+}
+
+.canvas__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

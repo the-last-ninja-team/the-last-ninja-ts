@@ -1,0 +1,3 @@
+export const CANCEL_ACTION_TIMEOUT = 1000;
+
+export const HIDE_SWORD_TIMEOUT = 5000;

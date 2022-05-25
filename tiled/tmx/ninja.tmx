@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" width="20" height="1" tilewidth="50" tileheight="37" infinite="0" nextlayerid="29" nextobjectid="1">
+ <editorsettings>
+  <export target="../ninja.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="ninja-tiles.tsx"/>
+ <layer id="26" name="air-sword-attack3" width="20" height="1" visible="0">
+  <data encoding="csv">
+105,106,107,108,109,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="27" name="air-sword-attack2" width="20" height="1" visible="0">
+  <data encoding="csv">
+101,102,103,104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="28" name="air-sword-attack1" width="20" height="1" visible="0">
+  <data encoding="csv">
+97,98,99,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="22" name="sword-attack3" width="20" height="1" visible="0">
+  <data encoding="csv">
+54,55,56,57,58,59,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="21" name="sword-attack2" width="20" height="1" visible="0">
+  <data encoding="csv">
+50,51,52,53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="9" name="sword-attack1" width="20" height="1" visible="0">
+  <data encoding="csv">
+43,44,45,46,47,48,49,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="10" name="remove-sword" width="20" height="1" visible="0">
+  <data encoding="csv">
+73,74,75,76,77,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="11" name="get-sword" width="20" height="1" visible="0">
+  <data encoding="csv">
+70,71,72,73,74,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="12" name="cast" width="20" height="1" visible="0">
+  <data encoding="csv">
+86,87,88,89,90,91,92,93,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="13" name="move" width="20" height="1" visible="0">
+  <data encoding="csv">
+9,10,11,12,13,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="14" name="jump" width="20" height="1" visible="0">
+  <data encoding="csv">
+15,16,17,18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="15" name="touch" width="20" height="1" visible="0">
+  <data encoding="csv">
+5,6,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="16" name="fall" width="20" height="1" visible="0">
+  <data encoding="csv">
+23,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="17" name="flip" width="20" height="1" visible="0">
+  <data encoding="csv">
+19,20,21,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="18" name="slide" width="20" height="1" visible="0">
+  <data encoding="csv">
+25,26,27,28,29,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="19" name="crouch" width="20" height="1" visible="0">
+  <data encoding="csv">
+5,6,7,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="20" name="armed-idle" width="20" height="1" visible="0">
+  <data encoding="csv">
+39,40,41,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="5" name="idle" width="20" height="1" visible="0">
+  <data encoding="csv">
+1,2,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

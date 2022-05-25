@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="left-up" width="20" height="1" tilewidth="50" tileheight="37" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="ninja-sword-run-tiles.tsx"/>
+ <layer id="1" name="armed-move" width="20" height="1">
+  <data encoding="csv">
+1,2,3,4,5,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

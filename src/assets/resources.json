@@ -1,0 +1,142 @@
+{
+  "tiles": [
+      {
+        "name": "ninja-tiles",
+        "src": "./assets/player/ninja-tiles.png",
+        "width": 350,
+        "height": 592,
+        "spriteWidth": 50,
+        "spriteHeight": 37
+      },
+      {
+        "name": "ninja-bow-tiles",
+        "src": "./assets/player/ninja-bow-tiles.png",
+        "width": 200,
+        "height": 148,
+        "spriteWidth": 50,
+        "spriteHeight": 37
+      },
+      {
+        "name": "ninja-sword-run-tiles",
+        "src": "./assets/player/ninja-sword-run-tiles.png",
+        "width": 300,
+        "height": 37,
+        "spriteWidth": 50,
+        "spriteHeight": 37
+      },
+      {
+        "name": "red-fire-ball-tiles",
+        "src": "./assets/objects/red-fireball-tiles.png",
+        "width": 3072,
+        "height": 394,
+        "spriteWidth": 512,
+        "spriteHeight": 197
+      },
+      {
+        "name": "arrow",
+        "src": "./assets/other/arrow.png",
+        "width": 18,
+        "height": 3,
+        "spriteWidth": 18,
+        "spriteHeight": 3
+      },
+      {
+        "name": "coin-tiles",
+        "src": "./assets/objects/coin-tiles.png",
+        "width": 512,
+        "height": 256,
+        "spriteWidth": 128,
+        "spriteHeight": 128
+      },
+      {
+        "name": "level01-tileset",
+        "src": "./assets/levels/level01/tileset.png",
+        "width": 928,
+        "height": 320,
+        "spriteWidth": 16,
+        "spriteHeight": 16
+      },
+      {
+        "name": "level02-tileset",
+        "src": "./assets/levels/level02/tileset.png",
+        "width": 368,
+        "height": 224,
+        "spriteWidth": 16,
+        "spriteHeight": 16
+      },
+      {
+        "name": "levelRayCastTest-tileset",
+        "src": "./assets/levels/levelRayCastTest/tileset.png",
+        "width": 224,
+        "height": 128,
+        "spriteWidth": 16,
+        "spriteHeight": 16
+      },
+      {
+        "name": "arrow-down",
+        "src": "./assets/other/arrow-down.png",
+        "width": 448,
+        "height": 153,
+        "spriteWidth": 112,
+        "spriteHeight": 153
+      },
+      {
+        "name": "skeleton-tiles",
+        "src": "./assets/enemies/skeleton-tiles.png",
+        "width": 1500,
+        "height": 900,
+        "spriteWidth": 150,
+        "spriteHeight": 150
+      },
+      {
+        "name": "flying-eye-tiles",
+        "src": "./assets/enemies/flying-eye-tiles.png",
+        "width": 1500,
+        "height": 900,
+        "spriteWidth": 150,
+        "spriteHeight": 150
+      },
+      {
+        "name": "goblin-tiles",
+        "src": "./assets/enemies/goblin-tiles.png",
+        "width": 1500,
+        "height": 900,
+        "spriteWidth": 150,
+        "spriteHeight": 150
+      },
+      {
+        "name": "mushroom-tiles",
+        "src": "./assets/enemies/mushroom-tiles.png",
+        "width": 1500,
+        "height": 900,
+        "spriteWidth": 150,
+        "spriteHeight": 150
+      }
+    ],
+  "images": [
+    {
+      "name": "level01-sky",
+      "src": "./assets/levels/level01/sky.png",
+      "width": 112,
+      "height": 304
+    },
+    {
+      "name": "level01-sea",
+      "src": "./assets/levels/level01/sea.png",
+      "width": 112,
+      "height": 96
+    },
+    {
+      "name": "level01-clouds",
+      "src": "./assets/levels/level01/clouds.png",
+      "width": 544,
+      "height": 236
+    },
+    {
+      "name": "level01-far-grounds",
+      "src": "./assets/levels/level01/far-grounds.png",
+      "width": 616,
+      "height": 110
+    }
+  ]
+}

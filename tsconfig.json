@@ -29,9 +29,12 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "preserveWatchOutput": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "src/assets"
   ]
 }
