@@ -30,9 +30,9 @@ const App: FC<AppProps> = ({ appController }) => {
 const container = document.getElementById('root');
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 
-if (container && canvas) {
-  const root = createRoot(container);
-  root.render(<App appController={new AppController(canvas)} />);
-} else {
+if (!container || !canvas) {
   throw new Error("Can't get root or canvas container");
 }
+
+const root = createRoot(container);
+root.render(<App appController={new AppController(canvas)} />);

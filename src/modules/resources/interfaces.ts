@@ -1,7 +1,7 @@
-import type { Asset, Tile, Image, AssetElement } from '@src/interfaces';
+import type { Asset, Tileset, Image, AssetElement } from '@src/interfaces';
 
 export interface ResourcesList {
-  tiles: Tile[];
+  tilesets: Tileset[];
   images: Image[];
 }
 

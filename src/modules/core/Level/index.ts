@@ -1,16 +1,17 @@
-import type { Undef, Tile, Shape } from '@src/interfaces';
+import type { Undef, Tileset, Shape, LevelMap, ObjectDef, Maybe } from '@src/interfaces';
+import { LayerName, LayerObjectType } from '@src/interfaces';
+import type { LevelLayersGraphic } from '@src/modules/graphics';
 import { Polygon, Rectangle } from '@src/modules/graphics/shapes';
 import { findItemByName } from '@src/utils';
 
-import type { LevelProps, LevelDimension, LevelMap, ObjectDef } from './interfaces';
-import { LayerName, LayerObjectType } from './interfaces';
+import type { LevelProps, LevelDimension } from './interfaces';
 
 export class Level {
   readonly key: string;
 
   readonly map: LevelMap;
 
-  readonly tile: Tile;
+  readonly tileset: Tileset;
 
   readonly dimension: LevelDimension;
 
@@ -32,10 +33,10 @@ export class Level {
 
   readonly area: Rectangle;
 
-  constructor({ key, map, tile }: LevelProps) {
+  constructor({ key, map, tileset }: LevelProps) {
     this.key = key;
     this.map = map;
-    this.tile = tile;
+    this.tileset = tileset;
 
     this.dimension = {
       rows: map.height,
@@ -83,4 +84,6 @@ export class Level {
     this.screenArea = new Rectangle(screen.x, screen.y, screen.width, screen.height);
     this.area = new Rectangle(0, 0, map.width * map.tilewidth, map.height * map.tileheight);
   }
+
+  getLevelLayerGraphics = (): Maybe<LevelLayersGraphic[]> => null;
 }

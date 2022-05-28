@@ -33,7 +33,7 @@ export class CameraTrap extends Camera {
 
   private levelArea: Undef<Rect>;
 
-  init({ cameraArea, screenArea, levelArea }: CameraProps) {
+  use({ cameraArea, screenArea, levelArea }: CameraProps) {
     // Координаты, относительно которых будем работать вывод на экран
     this.x = screenArea.x;
     this.y = screenArea.y;
@@ -48,6 +48,8 @@ export class CameraTrap extends Camera {
 
     this.widthBetweenViewPortAndLevel = this.screenArea.width - (cameraArea.x + cameraArea.width);
     this.heightBetweenViewPortAndLevel = this.screenArea.height - (cameraArea.y + cameraArea.height);
+
+    return this;
   }
 
   private calcX() {
@@ -102,10 +104,6 @@ export class CameraTrap extends Camera {
     }
   }
 
-  // getPosition = (object: Rect) => {
-  //
-  // }
-
   update() {
     if (this.object && this.cameraArea && this.levelArea && this.screenArea) {
       this.calcX();
@@ -119,7 +117,7 @@ export class CameraTrap extends Camera {
         const startPos = new Vector(this.x, this.y);
         const targetPos = new Vector(this.newX, this.newY);
 
-        this.steps += 0.003 * this.index;
+        this.steps += 0.05 * this.index;
         this.index = +1;
         startPos.lerp(targetPos.x, targetPos.y, this.steps);
 

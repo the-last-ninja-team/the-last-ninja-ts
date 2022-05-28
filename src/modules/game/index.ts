@@ -28,7 +28,7 @@ export class GameController {
     const playerCharacter = UnitFactory.createPlayerCharacter(this.level.playerPosition);
 
     this.playerCharacterController.watch(playerCharacter);
-    this.env.init(new RayCastCollider(this.level.area, this.level.collisions));
+    this.env.use(new RayCastCollider(this.level.area, this.level.collisions));
     this.env.add(playerCharacter);
 
     callback(this.level, playerCharacter);

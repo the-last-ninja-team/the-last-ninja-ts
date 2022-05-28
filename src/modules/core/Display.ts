@@ -1,4 +1,5 @@
-import type { Rect } from '@src/interfaces';
+import type { Measurement, Rect } from '@src/interfaces';
+import { CANVAS_CONTEXT } from '@src/constants';
 
 export class Display {
   readonly context: CanvasRenderingContext2D;
@@ -6,14 +7,27 @@ export class Display {
   readonly buffer: CanvasRenderingContext2D;
 
   constructor(canvas: HTMLCanvasElement) {
-    this.context = canvas.getContext('2d')!;
-    this.buffer = document.createElement('canvas').getContext('2d')!;
+    this.context = canvas.getContext(CANVAS_CONTEXT)!;
+    this.buffer = this.createContext();
   }
 
-  init(width: number, height: number) {
+  use(width: number, height: number) {
     this.buffer.canvas.width = width;
     this.buffer.canvas.height = height;
   }
+
+  createContext = (measurement?: Measurement) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = measurement?.width ?? 0;
+    canvas.height = measurement?.height ?? 0;
+
+    const context = canvas.getContext(CANVAS_CONTEXT);
+    if (!context) {
+      throw new Error('Error while create new canvas');
+    }
+
+    return context;
+  };
 
   resize(width: number, height: number) {
     const heightWidthRatio = this.buffer.canvas.height / this.buffer.canvas.width;

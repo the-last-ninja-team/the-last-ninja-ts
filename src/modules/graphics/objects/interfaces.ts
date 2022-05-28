@@ -1,4 +1,4 @@
-import type { Point, Measurement, Tile } from '@src/interfaces';
+import type { Point, Measurement, Tileset } from '@src/interfaces';
 
 export interface PictureProps extends Partial<Point>, Measurement {
   name: string;
@@ -15,4 +15,4 @@ export interface AnimationFramesProps extends SpriteProps {
   frames: SourcePoint[];
 }
 
-export type SpriteSheetProps = Tile;
+export type SpriteSheetProps = Tileset;

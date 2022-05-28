@@ -1,31 +1,30 @@
-import type { GameEngine, RenderCallback, Undef, UpdateCallback } from '@src/interfaces';
+import type { GameEngine, Undef, UpdateCallback } from '@src/interfaces';
 import { DISPLAY_PADDING, FRAME_PER_SECONDS } from '@src/constants';
-import { CanvasRender2D } from '@src/modules/graphics';
+import { CanvasRender2D, GraphicsStore } from '@src/modules/graphics';
 import { InputController } from '@src/modules/input';
 import { CameraTrap, Display, BaseEngine } from '@src/modules/core';
 import { ResourceFactory, AssetsLoader, AssetsStore } from '@src/modules/resources';
 import { GameController } from '@src/modules/game';
-import { DrawLevelTileset } from '@src/modules/graphics/static';
+import { DrawLevelTileset } from '@src/modules/graphics/level-layers';
 import type { Mob } from '@src/modules/unit';
+import { LayerIndexes } from '@src/modules/graphics/interfaces';
 
 export class AppController {
   private readonly display: Display;
 
   private readonly engine: GameEngine;
 
-  private readonly canvasRender2D: CanvasRender2D;
+  private readonly canvasRender: CanvasRender2D;
 
   private readonly inputController: InputController;
 
   private readonly camera: CameraTrap;
 
-  private readonly toRenderObjects: Array<RenderCallback> = [];
-
   private readonly toUpdateObjects: Array<UpdateCallback> = [];
 
   private readonly gameController: GameController;
 
-  private readonly drawLevelTileset: DrawLevelTileset;
+  private readonly graphicsStore: GraphicsStore;
 
   private playerCharacter: Undef<Mob>;
 
@@ -37,26 +36,29 @@ export class AppController {
     this.camera = new CameraTrap();
     this.display = new Display(canvas);
     this.engine = new BaseEngine(FRAME_PER_SECONDS, this.update.bind(this), this.render.bind(this));
-    this.canvasRender2D = new CanvasRender2D(this.display.buffer, this.camera);
+    this.canvasRender = new CanvasRender2D(this.display.buffer, this.camera);
     this.inputController = new InputController();
     this.gameController = new GameController(this.inputController);
-    this.drawLevelTileset = new DrawLevelTileset(this.canvasRender2D);
+    this.graphicsStore = new GraphicsStore(this.canvasRender);
 
     new AssetsLoader(ResourceFactory.getAllAssets())
       .load()
       .then((assets) => {
-        this.drawLevelTileset.setAssetsStore(new AssetsStore(assets));
-
         this.gameController.new('Level01', (level, playerCharacter) => {
           const { screenArea, area, cameraArea } = level;
           const { width, height } = screenArea;
 
-          this.display.init(width, height);
-          this.camera.init({ screenArea, levelArea: area, cameraArea });
-          this.camera.watch(playerCharacter);
-          this.drawLevelTileset.init(level);
+          this.display.use(width, height);
+          this.camera.use({ screenArea, levelArea: area, cameraArea }).watch(playerCharacter);
+
+          new DrawLevelTileset(level, new AssetsStore(assets), this.display).use(this.graphicsStore);
 
           // debug
+          this.graphicsStore.addRender((canvasRender) => {
+            if (this.playerCharacter) {
+              canvasRender.drawRect(this.playerCharacter, 'red');
+            }
+          }, LayerIndexes.Player);
           this.playerCharacter = playerCharacter;
 
           this.resize();
@@ -65,9 +67,8 @@ export class AppController {
       })
       .catch((err) => console.error(err));
 
-    this.toRenderObjects.push(this.drawLevelTileset.render.bind(this.drawLevelTileset));
-
     this.toUpdateObjects.push(this.gameController.update.bind(this.gameController));
+    this.toUpdateObjects.push(this.graphicsStore.update.bind(this.graphicsStore));
   }
 
   load() {
@@ -94,13 +95,9 @@ export class AppController {
   }
 
   /** здесь происходит отрисовка (рендер) всех объектов игры */
-  private render(time: number) {
-    this.canvasRender2D.fill('gray');
-    this.toRenderObjects.forEach((callback) => callback(time));
-    if (this.playerCharacter) {
-      this.canvasRender2D.drawRect(this.playerCharacter, 'red');
-    }
-
+  private render() {
+    this.canvasRender.fill('gray');
+    this.graphicsStore.render();
     this.display.render();
   }
 }

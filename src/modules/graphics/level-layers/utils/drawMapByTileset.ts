@@ -1,11 +1,10 @@
-import type { Tile, AssetElement } from '@src/interfaces';
-import type { LevelMap, Layer } from '@src/modules/core';
+import type { Tileset, AssetElement, LevelMap, Layer } from '@src/interfaces';
 import { SpriteSheet } from '@src/modules/graphics/objects';
 
 export const drawMapByTileset =
-  (map: LevelMap, tile: Tile, image: AssetElement) =>
+  (map: LevelMap, tileset: Tileset, image: AssetElement) =>
   (context: CanvasRenderingContext2D, filter?: (layer: Layer) => boolean) => {
-    const spriteSheet = new SpriteSheet(tile);
+    const spriteSheet = new SpriteSheet(tileset);
     const { tilewidth, tileheight } = map;
 
     map.layers

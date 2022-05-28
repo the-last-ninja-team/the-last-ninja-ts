@@ -5,12 +5,9 @@ export type Asset = {
   src: string;
 };
 
-export type Image = Asset &
-  Measurement & {
-    name: string;
-  };
+export type Image = Asset & Measurement;
 
-export type Tile = Image & {
+export type Tileset = Image & {
   spriteWidth: number;
   spriteHeight: number;
 };

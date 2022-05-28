@@ -1,4 +1,4 @@
-import type { AssetElement, Rect, Camera } from '@src/interfaces';
+import type { AssetElement, Rect, Camera, Measurement, Point } from '@src/interfaces';
 
 export class CanvasRender2D {
   private readonly context: CanvasRenderingContext2D;
@@ -33,11 +33,15 @@ export class CanvasRender2D {
     this.context.fillRect(0, 0, this.context.canvas.width, this.context.canvas.height);
   }
 
-  drawImage(image: AssetElement, rect: Rect) {
-    const { x, y, width, height } = rect;
+  drawImage(image: AssetElement, rect: Partial<Point> & Measurement, watch = true) {
+    const { x = 0, y = 0, width, height } = rect;
 
-    const destinationX = Math.round(x) - this.camera.getX();
-    const destinationY = Math.round(y) - this.camera.getY();
+    let destinationX = x;
+    let destinationY = y;
+    if (watch) {
+      destinationX = Math.round(x) - this.camera.getX();
+      destinationY = Math.round(y) - this.camera.getY();
+    }
 
     this.context.drawImage(image, destinationX, destinationY, width, height);
   }

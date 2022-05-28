@@ -1,4 +1,4 @@
-import type { Asset, Tile, Image } from '@src/interfaces';
+import type { Asset, Tileset, Image } from '@src/interfaces';
 
 import type { ResourcesList } from './interfaces';
 
@@ -7,13 +7,13 @@ const resourcesJson = require('@src/assets/resources.json');
 export class ResourceFactory {
   private static resources: ResourcesList = resourcesJson as ResourcesList;
 
-  static getTile(name: string): Tile {
-    const tile = this.resources.tiles.find((item) => item.name === name);
-    if (!tile) {
+  static getTileset(name: string): Tileset {
+    const tileset = this.resources.tilesets.find((item) => item.name === name);
+    if (!tileset) {
       throw new Error(`Can't get tile: ${name}`);
     }
 
-    return tile;
+    return tileset;
   }
 
   static getImage(name: string): Image {
@@ -26,8 +26,8 @@ export class ResourceFactory {
   }
 
   static getAllAssets() {
-    const { tiles, images } = this.resources;
-    return [...tiles, ...images].map<Asset>(({ name, src }) => ({
+    const { tilesets, images } = this.resources;
+    return [...tilesets, ...images].map<Asset>(({ name, src }) => ({
       name,
       src,
     }));

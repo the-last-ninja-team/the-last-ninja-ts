@@ -13,3 +13,5 @@ export const DEFAULT_FRICTION = 0.85;
 export const DEFAULT_GRAVITY = 2;
 
 export const CROUCHING_FRICTION_COEFFICIENT = 0.08;
+
+export const CANVAS_CONTEXT = '2d';

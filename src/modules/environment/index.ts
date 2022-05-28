@@ -21,7 +21,7 @@ export class Environment {
     this.gravity = gravity;
   }
 
-  init(collider: Collider) {
+  use(collider: Collider) {
     this.collider = collider;
   }
 

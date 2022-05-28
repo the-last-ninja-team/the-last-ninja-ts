@@ -27,5 +27,5 @@ export abstract class Camera {
 
   abstract update(): void;
 
-  abstract init(params?: CameraProps): void;
+  abstract use(params?: CameraProps): void;
 }

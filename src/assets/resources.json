@@ -1,5 +1,5 @@
 {
-  "tiles": [
+  "tilesets": [
       {
         "name": "ninja-tiles",
         "src": "./assets/player/ninja-tiles.png",
