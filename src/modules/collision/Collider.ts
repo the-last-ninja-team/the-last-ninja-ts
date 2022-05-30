@@ -37,4 +37,7 @@ export class Collider {
       y: mob.y + mob.velocityY,
     };
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,class-methods-use-this
+  postActions(mob: Mob) {}
 }

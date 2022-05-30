@@ -7,6 +7,7 @@ import { Polygon, Rectangle } from '@src/modules/graphics/shapes';
 
 import { Collider } from '../Collider';
 import { CollisionDetected } from '../CollisionDetected';
+import { COLLIDER_SYMBOL } from '../constants';
 
 import { Ray } from './Ray';
 import { OUT_OFF_Y_AXIOS_OFFSET, RAY_OFFSET_X, RAY_OFFSET_Y } from './constants';
@@ -192,12 +193,11 @@ export class RayCastCollider extends Collider {
    * */
   collide(mob: Mob) {
     super.collide(mob);
-    const rays = this.getNormalizedRays(mob);
 
     let newX = mob.x + mob.velocityX;
     let newY = mob.y + mob.velocityY;
 
-    rays.forEach((ray) => {
+    this.getNormalizedRays(mob).forEach((ray) => {
       const { end } = ray;
 
       // В зависимости от направления луча, и положения игрока, корректируем координаты последнего
@@ -236,5 +236,20 @@ export class RayCastCollider extends Collider {
       x: newX,
       y: newY,
     };
+  }
+
+  postActions(mob: Mob) {
+    const rays = this.getNormalizedRays(mob);
+
+    if (COLLIDER_SYMBOL in mob) {
+      Reflect.set(mob, COLLIDER_SYMBOL, { rays });
+    } else {
+      Object.defineProperty(mob, COLLIDER_SYMBOL, {
+        enumerable: false,
+        configurable: false,
+        writable: true,
+        value: { rays },
+      });
+    }
   }
 }

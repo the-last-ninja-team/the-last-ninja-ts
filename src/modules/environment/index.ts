@@ -58,6 +58,8 @@ export class Environment {
 
       mob.x = newPoint.x;
       mob.y = newPoint.y;
+
+      this.collider?.postActions(mob);
     });
   }
 }

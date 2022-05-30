@@ -19,7 +19,7 @@ export abstract class DynamicGraphicsResolver {
     this.assetsStore = assetsStore;
   }
 
-  abstract resolve(image: Image, props: unknown): GraphicAssetWithPoint | GraphicAssetWithPoint[];
+  abstract resolve(image: Image, ...args: unknown[]): GraphicAssetWithPoint | GraphicAssetWithPoint[];
 
   abstract update(time: number): void;
 }

@@ -1,5 +1,7 @@
 import type { Image } from '@src/interfaces';
 
+import type { DynamicImageDirection } from '../animation';
+
 export type FillImageType = {
   type: 'fill';
   y?: number;
@@ -7,19 +9,15 @@ export type FillImageType = {
 
 export type ParallaxImageType = {
   type: 'parallax';
+  speed: number;
+  space?: number;
+  y?: number;
 };
-
-export enum DynamicImageDirection {
-  Forward = 'forward',
-  Backward = 'backward',
-}
 
 export type DynamicImageType = {
   type: 'dynamic';
   direction: DynamicImageDirection;
-  infinite?: boolean;
   speed: number;
-  delay: number;
   y?: number;
 };
 

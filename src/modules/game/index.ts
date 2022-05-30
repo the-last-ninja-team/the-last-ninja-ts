@@ -7,7 +7,8 @@ import { DEFAULT_FRICTION, DEFAULT_GRAVITY } from '@src/constants';
 
 import { PlayerCharacterController } from './controllers/PlayerCharacterController';
 import { Levels } from './levels';
-import { UnitFactory } from './unit';
+import { UnitFactory, PlayerCharacter } from './unit';
+import { findClosesRespawnPoint } from './utils/findClosesRespawnPoint';
 import type { NewLevelCallbackProps } from './interfaces';
 
 export class GameController {
@@ -16,6 +17,8 @@ export class GameController {
   private readonly env: Environment;
 
   private level: Undef<Level>;
+
+  private playerCharacter: Undef<PlayerCharacter>;
 
   constructor(inputController: InputController) {
     this.playerCharacterController = new PlayerCharacterController(inputController);
@@ -30,12 +33,32 @@ export class GameController {
     this.playerCharacterController.watch(playerCharacter);
     this.env.use(new RayCastCollider(this.level.area, this.level.collisions));
     this.env.add(playerCharacter);
+    this.playerCharacter = playerCharacter;
 
     callback(this.level, playerCharacter);
+  }
+
+  private checkOutOfBounce() {
+    if (this.playerCharacter && this.level) {
+      const { area, respawns } = this.level;
+
+      // Как только ушли за границу пола, то перемещаем игрока на стартовую позицию
+      if (this.playerCharacter.getTop() > area.height) {
+        this.playerCharacter.velocityX = 0;
+        this.playerCharacter.velocityY = 0;
+        this.playerCharacter.jumping = false;
+
+        const respawn = findClosesRespawnPoint(this.playerCharacter, respawns);
+
+        this.playerCharacter.x = respawn.x;
+        this.playerCharacter.y = respawn.y;
+      }
+    }
   }
 
   update() {
     this.playerCharacterController.update();
     this.env.update();
+    this.checkOutOfBounce();
   }
 }

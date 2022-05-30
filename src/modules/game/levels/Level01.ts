@@ -2,12 +2,13 @@ import type { LevelMap, Maybe } from '@src/interfaces';
 import { Level } from '@src/modules/core';
 import { ResourceFactory } from '@src/modules/resources';
 import type { LevelLayersGraphic } from '@src/modules/graphics';
-import { DynamicImageDirection } from '@src/modules/graphics/level-layers';
+import { DynamicImageDirection } from '@src/modules/graphics/animation';
 
 const levelO1Json = require('@src/assets/maps/level-maps/level01.json');
 
 const skyImage = ResourceFactory.getImage('level01-sky');
 const cloudsImage = ResourceFactory.getImage('level01-clouds');
+const farGroundsImage = ResourceFactory.getImage('level01-far-grounds');
 
 export class Level01 extends Level {
   constructor() {
@@ -29,10 +30,18 @@ export class Level01 extends Level {
       props: {
         type: 'dynamic',
         direction: DynamicImageDirection.Forward,
-        infinite: true,
         speed: 1,
-        delay: 2,
         y: skyImage.height - cloudsImage.height,
+      },
+    },
+    {
+      zIndex: 20,
+      image: farGroundsImage,
+      props: {
+        type: 'parallax',
+        speed: 0.35,
+        space: this.screenArea.width,
+        y: this.area.height - farGroundsImage.height,
       },
     },
   ];

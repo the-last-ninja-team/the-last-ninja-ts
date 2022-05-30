@@ -1,5 +1,6 @@
-import type { Display, Level } from '@src/modules/core';
+import type { Level } from '@src/modules/core';
 import type { AssetsStore } from '@src/modules/resources';
+import type { Mob } from '@src/modules/unit';
 
 import { GraphicItem } from '../../interfaces';
 import type { DynamicImageType, ParallaxImageType } from '../interfaces';
@@ -12,10 +13,8 @@ import { DynamicGraphicsResolver } from './DynamicGraphicsResolver';
 export class BackgroundLayer extends GraphicItem {
   private readonly dynamicResolvers: DynamicGraphicsResolver[] = [];
 
-  constructor(level: Level, display: Display, assetsStore: AssetsStore) {
-    super();
-
-    const resolverProps = { level, display, assetsStore };
+  resolve(level: Level, assetsStore: AssetsStore, mob: Mob) {
+    const resolverProps = { level, assetsStore, display: this.env.display };
     const levelLayerGraphics = level.getLevelLayerGraphics();
 
     if (levelLayerGraphics) {
@@ -37,11 +36,15 @@ export class BackgroundLayer extends GraphicItem {
       levelLayerGraphics
         .filter(({ props }) => props.type === 'parallax')
         .forEach(({ image, props, zIndex = 0 }) => {
-          const parallaxTypeResolver = new ParallaxTypeResolver(resolverProps);
+          const parallaxTypeResolver = new ParallaxTypeResolver({ ...resolverProps, mob, camera: this.env.camera });
           this.dynamicResolvers.push(parallaxTypeResolver);
-          this.add({ asset: parallaxTypeResolver.resolve(image, props as ParallaxImageType), zIndex });
+          parallaxTypeResolver.resolve(image, props as ParallaxImageType).forEach((asset) => {
+            this.add({ asset, zIndex });
+          });
         });
     }
+
+    return this;
   }
 
   update(time: number) {

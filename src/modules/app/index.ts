@@ -1,13 +1,15 @@
 import type { GameEngine, Undef, UpdateCallback } from '@src/interfaces';
+import type { Level } from '@src/modules/core';
+import type { Mob } from '@src/modules/unit';
+import type { DebugEvent } from '@src/components/Debug';
 import { DISPLAY_PADDING, FRAME_PER_SECONDS } from '@src/constants';
-import { CanvasRender2D, GraphicsStore } from '@src/modules/graphics';
+import { GraphicsStore, LayerIndexes } from '@src/modules/graphics';
 import { InputController } from '@src/modules/input';
-import { CameraTrap, Display, BaseEngine } from '@src/modules/core';
+import { CameraTrap, Display, BaseEngine, CanvasRender2D } from '@src/modules/core';
 import { ResourceFactory, AssetsLoader, AssetsStore } from '@src/modules/resources';
 import { GameController } from '@src/modules/game';
 import { DrawLevelTileset } from '@src/modules/graphics/level-layers';
-import type { Mob } from '@src/modules/unit';
-import { LayerIndexes } from '@src/modules/graphics/interfaces';
+import { Logger } from '@src/modules/logger';
 
 export class AppController {
   private readonly display: Display;
@@ -26,7 +28,11 @@ export class AppController {
 
   private readonly graphicsStore: GraphicsStore;
 
+  private readonly logger: Logger;
+
   private playerCharacter: Undef<Mob>;
+
+  private level: Undef<Level>;
 
   constructor(canvas: HTMLCanvasElement) {
     this.load = this.load.bind(this);
@@ -35,11 +41,18 @@ export class AppController {
 
     this.camera = new CameraTrap();
     this.display = new Display(canvas);
+    this.logger = new Logger(this.display.buffer, this.camera);
+
     this.engine = new BaseEngine(FRAME_PER_SECONDS, this.update.bind(this), this.render.bind(this));
-    this.canvasRender = new CanvasRender2D(this.display.buffer, this.camera);
+    this.canvasRender = this.display.createCanvasRender(this.camera);
+
     this.inputController = new InputController();
     this.gameController = new GameController(this.inputController);
-    this.graphicsStore = new GraphicsStore(this.canvasRender);
+    this.graphicsStore = new GraphicsStore({
+      canvasRender: this.canvasRender,
+      display: this.display,
+      camera: this.camera,
+    });
 
     new AssetsLoader(ResourceFactory.getAllAssets())
       .load()
@@ -51,7 +64,7 @@ export class AppController {
           this.display.use(width, height);
           this.camera.use({ screenArea, levelArea: area, cameraArea }).watch(playerCharacter);
 
-          new DrawLevelTileset(level, new AssetsStore(assets), this.display).use(this.graphicsStore);
+          new DrawLevelTileset(level, new AssetsStore(assets), playerCharacter).use(this.graphicsStore);
 
           // debug
           this.graphicsStore.addRender((canvasRender) => {
@@ -59,7 +72,9 @@ export class AppController {
               canvasRender.drawRect(this.playerCharacter, 'red');
             }
           }, LayerIndexes.Player);
+
           this.playerCharacter = playerCharacter;
+          this.level = level;
 
           this.resize();
           this.engine.start();
@@ -69,6 +84,18 @@ export class AppController {
 
     this.toUpdateObjects.push(this.gameController.update.bind(this.gameController));
     this.toUpdateObjects.push(this.graphicsStore.update.bind(this.graphicsStore));
+  }
+
+  debug(event: DebugEvent) {
+    this.logger.debug(event);
+  }
+
+  stop() {
+    this.engine.stop();
+  }
+
+  start() {
+    this.engine.start();
   }
 
   load() {
@@ -98,6 +125,10 @@ export class AppController {
   private render() {
     this.canvasRender.fill('gray');
     this.graphicsStore.render();
+
+    this.logger.mob(this.playerCharacter);
+    this.logger.level(this.level);
+
     this.display.render();
   }
 }

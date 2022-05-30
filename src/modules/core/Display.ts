@@ -1,5 +1,7 @@
-import type { Measurement, Rect } from '@src/interfaces';
+import type { Measurement, Camera } from '@src/interfaces';
 import { CANVAS_CONTEXT } from '@src/constants';
+
+import { CanvasRender2D } from './CanvasRender2D';
 
 export class Display {
   readonly context: CanvasRenderingContext2D;
@@ -29,6 +31,10 @@ export class Display {
     return context;
   };
 
+  createCanvasRender(camera: Camera) {
+    return new CanvasRender2D(this.buffer, camera, this.isNeedToDraw.bind(this));
+  }
+
   resize(width: number, height: number) {
     const heightWidthRatio = this.buffer.canvas.height / this.buffer.canvas.width;
 
@@ -48,9 +54,7 @@ export class Display {
    * Функция для проверки, нужно ли по заданным координатам рисовать объект.
    * Если он полностью выходит за рамки экрана, то рисовать нет смысла
    * */
-  isNeedToDraw(rect: Rect) {
-    const { x, y, width, height } = rect;
-
+  isNeedToDraw(x: number, y: number, width: number, height: number) {
     return !(x >= this.context.canvas.width || y >= this.context.canvas.height || x + width <= 0 || y + height <= 0);
   }
 

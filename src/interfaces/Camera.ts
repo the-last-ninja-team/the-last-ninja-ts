@@ -1,4 +1,4 @@
-import type { Rect, Undef } from '@src/interfaces';
+import type { Rect, Undef, Point } from '@src/interfaces';
 
 export type CameraProps = {
   cameraArea: Rect;
@@ -23,6 +23,13 @@ export abstract class Camera {
 
   getY() {
     return this.y;
+  }
+
+  getDestination({ x = 0, y = 0 }: Partial<Point>): Point {
+    return {
+      x: Math.round(x) - this.x,
+      y: Math.round(y) - this.y,
+    };
   }
 
   abstract update(): void;

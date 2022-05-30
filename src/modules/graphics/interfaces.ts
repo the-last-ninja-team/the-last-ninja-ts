@@ -1,6 +1,5 @@
-import type { AssetElement, Point } from '@src/interfaces';
-
-import type { CanvasRender2D } from './CanvasRender2D';
+import type { AssetElement, Point, Camera } from '@src/interfaces';
+import type { Display, CanvasRender2D } from '@src/modules/core';
 
 export enum LayerIndexes {
   Background = -200,
@@ -22,12 +21,26 @@ export type GraphicItemAsset = {
   asset: GraphicAssetWithPoint | AssetElement;
 };
 
+export type GraphicsStoreEnvironment = {
+  canvasRender: CanvasRender2D;
+  display: Display;
+  camera: Camera;
+};
+
 export abstract class GraphicItem {
   readonly assets: GraphicItemAsset[] = [];
+
+  protected readonly env: GraphicsStoreEnvironment;
+
+  constructor(env: GraphicsStoreEnvironment) {
+    this.env = env;
+  }
 
   protected add(...asset: GraphicItemAsset[]) {
     this.assets.push(...asset);
   }
+
+  abstract resolve(...args: unknown[]): GraphicItem;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,class-methods-use-this
   update(time: number) {}

@@ -1,16 +1,15 @@
-import type { CanvasRender2D } from './CanvasRender2D';
 import { sortByZIndex } from './utils/sortByZIndex';
-import type { GraphicItemDefinition, GraphicItem, RenderCallback } from './interfaces';
+import type { GraphicItemDefinition, GraphicItem, RenderCallback, GraphicsStoreEnvironment } from './interfaces';
 
 export class GraphicsStore {
-  private readonly canvasRender: CanvasRender2D;
+  readonly env: GraphicsStoreEnvironment;
 
   private items: GraphicItemDefinition[] = [];
 
   private isItemsSorted = false;
 
-  constructor(canvasRender: CanvasRender2D) {
-    this.canvasRender = canvasRender;
+  constructor(env: GraphicsStoreEnvironment) {
+    this.env = env;
   }
 
   addItem(item: GraphicItem, zIndex: number) {
@@ -53,12 +52,12 @@ export class GraphicsStore {
           }
 
           const { width, height } = image;
-          this.canvasRender.drawImage(image, { x, y, width, height });
+          this.env.canvasRender.drawImage(image, { x, y, width, height });
         });
       }
 
       if (render) {
-        render(this.canvasRender);
+        render(this.env.canvasRender);
       }
     });
   }

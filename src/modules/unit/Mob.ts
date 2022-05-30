@@ -10,19 +10,19 @@ export class Mob extends MovingObject {
 
   private readonly hitboxCrouch: Hitbox;
 
-  private originX: number;
+  private readonly jumpPower: number;
 
-  private originY: number;
+  private idling: boolean;
 
   private directionX: number;
 
-  private readonly jumpPower: number;
-
-  private readonly speed: number;
-
   protected crouching: boolean;
 
-  private idling: boolean;
+  readonly originX: number;
+
+  readonly originY: number;
+
+  readonly speed: number;
 
   constructor({
     x,
@@ -50,6 +50,10 @@ export class Mob extends MovingObject {
     this.jumping = true;
     this.crouching = false;
     this.idling = false;
+  }
+
+  getDirectionX() {
+    return this.directionX;
   }
 
   private setHitbox(hitbox: Hitbox) {
