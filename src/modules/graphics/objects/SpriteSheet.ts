@@ -1,4 +1,5 @@
 import { Sprite } from './Sprite';
+import { AnimationFrames } from './AnimationFrames';
 import type { SpriteSheetProps } from './interfaces';
 
 export class SpriteSheet {
@@ -20,11 +21,24 @@ export class SpriteSheet {
     this.spriteHeight = spriteHeight;
   }
 
-  getSprite(index: number) {
+  private getSprite(index: number) {
     return new Sprite({
       name: this.name,
       sourceX: this.getSourceX(index),
       sourceY: this.getSourceY(index),
+      width: this.spriteWidth,
+      height: this.spriteHeight,
+    });
+  }
+
+  protected getAnimationFrames(id: string, indexes: number[]) {
+    return new AnimationFrames({
+      id,
+      name: this.name,
+      frames: indexes.map((index) => ({
+        sourceX: this.getSourceX(index),
+        sourceY: this.getSourceY(index),
+      })),
       width: this.spriteWidth,
       height: this.spriteHeight,
     });

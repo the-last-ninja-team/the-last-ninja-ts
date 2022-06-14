@@ -4,7 +4,7 @@ import { CANCEL_ACTION_TIMEOUT } from './constants';
 import type { CharacterActionCallback } from './interfaces';
 
 export class CharacterAction {
-  private readonly key: string;
+  private readonly id: string;
 
   private readonly callback: Undef<CharacterActionCallback>;
 
@@ -14,10 +14,10 @@ export class CharacterAction {
 
   private timer: Undef<NodeJS.Timeout>;
 
-  constructor(key: string, callback?: CharacterActionCallback) {
+  constructor(id: string, callback?: CharacterActionCallback) {
+    this.id = id;
     this.canDoAction = true;
     this.action = false;
-    this.key = key;
     this.callback = callback;
 
     this.clear = this.clear.bind(this);

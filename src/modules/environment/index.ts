@@ -36,6 +36,9 @@ export class Environment {
   private applyPhysicalLaws = (mob: Mob) => {
     mob.velocityY += this.gravity;
     mob.velocityX *= this.friction + (mob.isCrouching() ? CROUCHING_FRICTION_COEFFICIENT : 0);
+    if (mob.velocityX * Math.sign(mob.velocityX) < 0.01) {
+      mob.velocityX = 0;
+    }
 
     /* Made it so that velocity cannot exceed velocity_max */
     if (Math.abs(mob.velocityX) > mob.velocityMax) {
@@ -56,8 +59,8 @@ export class Environment {
 
       const newPoint = this.collider?.collide(mob) ?? { x: mob.x, y: mob.y };
 
-      mob.x = newPoint.x;
-      mob.y = newPoint.y;
+      mob.x = Math.round(newPoint.x);
+      mob.y = Math.round(newPoint.y);
 
       this.collider?.postActions(mob);
     });

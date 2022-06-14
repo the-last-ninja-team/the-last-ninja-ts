@@ -1,7 +1,7 @@
 import type { LevelMap, Measurement, Tileset } from '@src/interfaces';
 
 export interface LevelProps {
-  key: string;
+  id: string;
   map: LevelMap;
   tileset: Tileset;
 }

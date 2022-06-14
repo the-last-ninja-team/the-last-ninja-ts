@@ -2,9 +2,11 @@ import { Sprite } from './Sprite';
 import type { AnimationFramesProps, SourcePoint } from './interfaces';
 
 export class AnimationFrames extends Sprite {
-  private readonly frames: SourcePoint[];
+  readonly id: string;
 
-  constructor({ name, frames, width, height }: AnimationFramesProps) {
+  readonly frames: SourcePoint[];
+
+  constructor({ id, name, frames, width, height }: AnimationFramesProps) {
     const [{ sourceX, sourceY }] = frames;
 
     super({
@@ -15,6 +17,7 @@ export class AnimationFrames extends Sprite {
       height,
     });
 
+    this.id = id;
     this.frames = frames;
   }
 
@@ -26,5 +29,9 @@ export class AnimationFrames extends Sprite {
       this.sourceX = sourceX;
       this.sourceY = sourceY;
     }
+  }
+
+  equals(obj: AnimationFrames) {
+    return this.id === obj.id;
   }
 }

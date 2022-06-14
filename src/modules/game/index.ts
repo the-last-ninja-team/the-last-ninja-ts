@@ -5,7 +5,10 @@ import { Environment } from '@src/modules/environment';
 import { RayCastCollider } from '@src/modules/collision';
 import { DEFAULT_FRICTION, DEFAULT_GRAVITY } from '@src/constants';
 
-import { PlayerCharacterController } from './controllers/PlayerCharacterController';
+import { PlayerCharacterController } from './controllers';
+import { PlayerCharacterInterpreter } from './interpreters';
+import { PlayerCharacterAnimationResolver } from './resolvers';
+import { PlayerCharacterAnimator } from './animations';
 import { Levels } from './levels';
 import { UnitFactory, PlayerCharacter } from './unit';
 import { findClosesRespawnPoint } from './utils/findClosesRespawnPoint';
@@ -19,6 +22,8 @@ export class GameController {
   private level: Undef<Level>;
 
   private playerCharacter: Undef<PlayerCharacter>;
+
+  private playerCharacterAnimation: Undef<PlayerCharacterAnimationResolver>;
 
   constructor(inputController: InputController) {
     this.playerCharacterController = new PlayerCharacterController(inputController);
@@ -34,6 +39,10 @@ export class GameController {
     this.env.use(new RayCastCollider(this.level.area, this.level.collisions));
     this.env.add(playerCharacter);
     this.playerCharacter = playerCharacter;
+    this.playerCharacterAnimation = new PlayerCharacterAnimationResolver(
+      new PlayerCharacterInterpreter(playerCharacter),
+      new PlayerCharacterAnimator(),
+    );
 
     callback(this.level, playerCharacter);
   }
@@ -58,7 +67,9 @@ export class GameController {
 
   update() {
     this.playerCharacterController.update();
+    this.playerCharacterAnimation?.update();
     this.env.update();
+
     this.checkOutOfBounce();
   }
 }

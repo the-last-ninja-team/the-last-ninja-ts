@@ -1,0 +1,1 @@
+export { PlayerCharacterInterpreter } from './PlayerCharacterInterpreter';

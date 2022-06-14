@@ -7,7 +7,7 @@ import { findItemByName } from '@src/utils';
 import type { LevelProps, LevelDimension } from './interfaces';
 
 export class Level {
-  readonly key: string;
+  readonly id: string;
 
   readonly map: LevelMap;
 
@@ -33,8 +33,8 @@ export class Level {
 
   readonly area: Rectangle;
 
-  constructor({ key, map, tileset }: LevelProps) {
-    this.key = key;
+  constructor({ id, map, tileset }: LevelProps) {
+    this.id = id;
     this.map = map;
     this.tileset = tileset;
 

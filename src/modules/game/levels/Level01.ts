@@ -1,4 +1,4 @@
-import type { LevelMap, Maybe } from '@src/interfaces';
+import type { Maybe } from '@src/interfaces';
 import { Level } from '@src/modules/core';
 import { ResourceFactory } from '@src/modules/resources';
 import type { LevelLayersGraphic } from '@src/modules/graphics';
@@ -12,7 +12,7 @@ const farGroundsImage = ResourceFactory.getImage('level01-far-grounds');
 
 export class Level01 extends Level {
   constructor() {
-    super({ key: 'level01', map: levelO1Json as LevelMap, tileset: ResourceFactory.getTileset('level01-tileset') });
+    super({ id: 'level01', map: levelO1Json, tileset: ResourceFactory.getTileset('level01-tileset') });
   }
 
   getLevelLayerGraphics = (): Maybe<LevelLayersGraphic[]> => [

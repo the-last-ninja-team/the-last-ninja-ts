@@ -7,3 +7,4 @@ export * from './GameEngine';
 export * from './Camera';
 export * from './Shape';
 export * from './assets-mapping';
+export * from './animation-mapping';

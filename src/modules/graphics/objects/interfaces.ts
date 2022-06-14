@@ -12,6 +12,7 @@ export type SourcePoint = {
 export type SpriteProps = PictureProps & Partial<SourcePoint>;
 
 export interface AnimationFramesProps extends SpriteProps {
+  id: string;
   frames: SourcePoint[];
 }
 

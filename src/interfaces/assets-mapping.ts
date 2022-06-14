@@ -22,59 +22,28 @@ export enum LayerObjectType {
 }
 
 export interface LevelMap {
-  compressionlevel: number;
-  editorsettings: EditorSettings;
-  height: number;
-  infinite: boolean;
-  layers: Layer[];
-  nextlayerid: number;
-  nextobjectid: number;
-  orientation: string;
-  renderorder: string;
-  tiledversion: string;
-  tileheight: number;
-  tilesets: Array<{
-    firstgid: number;
-    source: string;
-  }>;
-  tilewidth: number;
-  type: string;
-  version: number;
   width: number;
-}
-
-export interface EditorSettings {
-  export: Export;
-}
-
-export interface Export {
-  format: string;
-  target: string;
-}
-
-export interface Layer {
-  data?: number[];
-  height?: number;
-  id: number;
-  name: string;
-  opacity: number;
+  height: number;
+  tilewidth: number;
+  tileheight: number;
   type: string;
-  visible: boolean;
+  layers: LevelMapLayer[];
+}
+
+export interface LevelMapLayer {
   width?: number;
-  x: number;
-  y: number;
-  draworder?: string;
+  height?: number;
+  name: string;
+  type: string;
+  data?: number[];
   objects?: ObjectDef[];
 }
 
 export interface ObjectDef {
-  height: number;
-  id: number;
   name: string;
-  rotation: number;
-  type: string;
-  visible: boolean;
+  height: number;
   width: number;
+  type: string;
   x: number;
   y: number;
   polygon?: PolygonDef[];

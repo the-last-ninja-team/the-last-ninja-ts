@@ -10,13 +10,13 @@ export class Mob extends MovingObject {
 
   private readonly hitboxCrouch: Hitbox;
 
-  private readonly jumpPower: number;
-
   private idling: boolean;
 
   private directionX: number;
 
   protected crouching: boolean;
+
+  readonly jumpPower: number;
 
   readonly originX: number;
 

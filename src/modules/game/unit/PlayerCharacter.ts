@@ -8,11 +8,11 @@ import { HIDE_SWORD_TIMEOUT } from './constants';
 export class PlayerCharacter extends Mob {
   private readonly actions: CharacterAction[] = [];
 
-  private castAction: CharacterAction;
+  readonly castAction: CharacterAction;
 
-  private swordAttackAction: CharacterAction;
+  readonly swordAttackAction: CharacterAction;
 
-  private bowAttackAction: CharacterAction;
+  readonly bowAttackAction: CharacterAction;
 
   private isArmed: boolean;
 

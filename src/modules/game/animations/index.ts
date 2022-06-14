@@ -1,0 +1,1 @@
+export { PlayerCharacterAnimator } from './PlayerCharacterAnimator';

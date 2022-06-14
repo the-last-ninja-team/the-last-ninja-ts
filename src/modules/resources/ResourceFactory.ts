@@ -5,7 +5,7 @@ import type { ResourcesList } from './interfaces';
 const resourcesJson = require('@src/assets/resources.json');
 
 export class ResourceFactory {
-  private static resources: ResourcesList = resourcesJson as ResourcesList;
+  private static resources: ResourcesList = resourcesJson;
 
   static getTileset(name: string): Tileset {
     const tileset = this.resources.tilesets.find((item) => item.name === name);

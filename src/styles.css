@@ -33,6 +33,7 @@ body {
 
 .debug__info {
   min-width: 300px;
+  min-height: 50px  ;
   width: 100%;
   height: 100%;
   padding: 0;
